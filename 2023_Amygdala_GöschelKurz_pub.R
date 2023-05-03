@@ -555,7 +555,7 @@ sum_my_lmer <- lapply(my_lmer, function(model)as.data.frame(summary(model)$coeff
 
 ##### Table A3: Model 1. Estimated rate of change of memory per year across the entire cohort predicted by baseline ROI volume. Linear mixed models were adjusted to age, sex and education. #### #################
 
-my_Trends <- mapply(function(model)emmeans(model,~roi|year, at=list(roi=c(8,9,10), year=c(0,1,3))), my_lmer)
+my_Trends <- mapply(function(model)emmeans(model,~roi|year, at=list(roi=c(8,9,10), year=c(0,1,3))), my_lmer) #roi = 80%, 90% and 100%
 my_Trends <- lapply(my_Trends, as.data.frame)
 
 my_Trends_m1_yearly <- mapply(function(model)emtrends(model, "roi", var= "year", at = list(roi=c(8,9,10))), my_lmer) #yearly memory change
@@ -636,54 +636,54 @@ my_Trends_m2_yearly <- mapply(function(model)emtrends(model, ~ Diagnose_Baseline
 my_Trends_m2_p <- lapply(my_Trends_m2_yearly, test)#p-values
 
 coefficients_table3 <- function(Trends, Trends_p){
-  c(HCmeanHCVol = round((as.data.frame(Trends)[1,3]),2),
-    HCmeanHC_lower = round((as.data.frame(Trends)[1,6]),2),
-    HCmeanHC_upper = round((as.data.frame(Trends)[1,7]),2),
-    HCmeanHCp = round((as.data.frame(Trends_p))[1,7],3),
+  c(HCmeanHCVol = round((as.data.frame(Trends)[9,3]),2),
+    HCmeanHC_lower = round((as.data.frame(Trends)[9,6]),2),
+    HCmeanHC_upper = round((as.data.frame(Trends)[9,7]),2),
+    HCmeanHCp = round((as.data.frame(Trends_p))[9,7],3),
     "HC10Vol" = round((as.data.frame(Trends)[5,3]),2),
     "HC10Vol_lower" = round((as.data.frame(Trends)[5,6]),2),
     "HC10Vol_upper" = round((as.data.frame(Trends)[5,7]),2),
     "HC10Volp" = round((as.data.frame(Trends_p))[5,7],3),
-    "HC20Vol" = round((as.data.frame(Trends)[9,3]),2),
-    "HC20Vol_lower" = round((as.data.frame(Trends)[9,6]),2),
-    "HC20Vol_upper" = round((as.data.frame(Trends)[9,7]),2),
-    "HC20Volp" = round((as.data.frame(Trends_p))[9,7],3),
-    SCDmeanHCVol = round((as.data.frame(Trends)[2,3]),2),
-    SCDmeanHC_lower = round((as.data.frame(Trends)[2,6]),2),
-    SCDmeanHC_upper = round((as.data.frame(Trends)[2,7]),2),
-    SCDmeanHCp = round((as.data.frame(Trends_p))[2,7],3),
+    "HC20Vol" = round((as.data.frame(Trends)[1,3]),2),
+    "HC20Vol_lower" = round((as.data.frame(Trends)[1,6]),2),
+    "HC20Vol_upper" = round((as.data.frame(Trends)[1,7]),2),
+    "HC20Volp" = round((as.data.frame(Trends_p))[1,7],3),
+    SCDmeanHCVol = round((as.data.frame(Trends)[10,3]),2),
+    SCDmeanHC_lower = round((as.data.frame(Trends)[10,6]),2),
+    SCDmeanHC_upper = round((as.data.frame(Trends)[10,7]),2),
+    SCDmeanHCp = round((as.data.frame(Trends_p))[10,7],3),
     "SCD10Vol" = round((as.data.frame(Trends)[6,3]),2),
     "SCD10Vol_lower" = round((as.data.frame(Trends)[6,6]),2),
     "SCD10Vol_upper" = round((as.data.frame(Trends)[6,7]),2),
     "SCD10Volp" = round((as.data.frame(Trends_p))[6,7],3),
-    "SCD20Vol" = round((as.data.frame(Trends)[10,3]),2),
-    "SCD20Vol_lower" = round((as.data.frame(Trends)[10,6]),2),
-    "SCD20Vol_upper" = round((as.data.frame(Trends)[10,7]),2),
-    "SCD20Volp" = round((as.data.frame(Trends_p))[10,7],3),
-    MCImeanHCVol = round((as.data.frame(Trends)[3,3]),2),
-    MCImeanHC_lower = round((as.data.frame(Trends)[3,6]),2),
-    MCImeanHC_upper = round((as.data.frame(Trends)[3,7]),2),
-    MCImeanHCp = round((as.data.frame(Trends_p))[3,7],3),
+    "SCD20Vol" = round((as.data.frame(Trends)[2,3]),2),
+    "SCD20Vol_lower" = round((as.data.frame(Trends)[2,6]),2),
+    "SCD20Vol_upper" = round((as.data.frame(Trends)[2,7]),2),
+    "SCD20Volp" = round((as.data.frame(Trends_p))[2,7],3),
+    MCImeanHCVol = round((as.data.frame(Trends)[11,3]),2),
+    MCImeanHC_lower = round((as.data.frame(Trends)[11,6]),2),
+    MCImeanHC_upper = round((as.data.frame(Trends)[11,7]),2),
+    MCImeanHCp = round((as.data.frame(Trends_p))[11,7],3),
     "MCI10Vol" = round((as.data.frame(Trends)[7,3]),2),
     "MCI10Vol_lower" = round((as.data.frame(Trends)[7,6]),2),
     "MCI10Vol_upper" = round((as.data.frame(Trends)[7,7]),2),
     "MCI10Volp" = round((as.data.frame(Trends_p))[7,7],3),
-    "MCI20Vol" = round((as.data.frame(Trends)[11,3]),2),
-    "MCI20Vol_lower" = round((as.data.frame(Trends)[11,6]),2),
-    "MCI20Vol_upper" = round((as.data.frame(Trends)[11,7]),2),
-    "MCI20Volp" = round((as.data.frame(Trends_p))[11,7],3),
-    ADmeanHCVol = round((as.data.frame(Trends)[4,3]),2),
-    ADmeanHC_lower = round((as.data.frame(Trends)[4,6]),2),
-    ADmeanHC_upper = round((as.data.frame(Trends)[4,7]),2),
-    ADmeanHCp = round((as.data.frame(Trends_p))[4,7],3),
+    "MCI20Vol" = round((as.data.frame(Trends)[3,3]),2),
+    "MCI20Vol_lower" = round((as.data.frame(Trends)[3,6]),2),
+    "MCI20Vol_upper" = round((as.data.frame(Trends)[3,7]),2),
+    "MCI20Volp" = round((as.data.frame(Trends_p))[3,7],3),
+    ADmeanHCVol = round((as.data.frame(Trends)[12,3]),2),
+    ADmeanHC_lower = round((as.data.frame(Trends)[12,6]),2),
+    ADmeanHC_upper = round((as.data.frame(Trends)[12,7]),2),
+    ADmeanHCp = round((as.data.frame(Trends_p))[12,7],3),
     "AD10Vol" = round((as.data.frame(Trends)[8,3]),2),
     "AD10Vol_lower" = round((as.data.frame(Trends)[8,6]),2),
     "AD10Vol_upper" = round((as.data.frame(Trends)[8,7]),2),
     "AD10Volp" = round((as.data.frame(Trends_p))[8,7],3),
-    "AD20Vol" = round((as.data.frame(Trends)[12,3]),2),
-    "AD20Vol_lower" = round((as.data.frame(Trends)[12,6]),2),
-    "AD20Vol_upper" = round((as.data.frame(Trends)[12,7]),2),
-    "AD20Volp" = round((as.data.frame(Trends_p))[12,7],3)
+    "AD20Vol" = round((as.data.frame(Trends)[4,3]),2),
+    "AD20Vol_lower" = round((as.data.frame(Trends)[4,6]),2),
+    "AD20Vol_upper" = round((as.data.frame(Trends)[4,7]),2),
+    "AD20Volp" = round((as.data.frame(Trends_p))[4,7],3)
     )
 }
 
@@ -792,7 +792,6 @@ Trends_Figure3 <- as.data.frame(my_Trends)%>%
   mutate (ROI = factor (ROI, levels = names(as.data.frame(my_Trends)%>%select(ends_with("trend"))), labels = ROIs_names), 
           Diagnose_Baseline = factor(Diagnose_Baseline, levels = c("HC", "SCD", "MCI", "AD")),
           Volume = factor(Volume, labels = c("-20%", "-10%", "HC mean")))
-Trends_Figure3 %>% mutate (Volume = as.factor(Volume, levels = c("HC mean", "-10%", "-20%")))
 
 lCL_Figure3 <- as.data.frame(my_Trends)%>%
   select(Volume = Whole_amygdala.roi, Diagnose_Baseline = Whole_amygdala.Diagnose_Baseline, ends_with("lower.CL"))%>%
@@ -843,7 +842,7 @@ Figure3 <- df_Figure3 %>%
   geom_linerange(aes(xmin=lower_CL, xmax=upper_CL), position = position_dodge(width =0.5), size= 0.5)+
   xlab(label = "yearly memory change")+
   ylab(NULL)+
-  guides(color = guide_legend(title = "ROI volume"))+
+  #guides(color = guide_legend(title = "ROI volume"))+
   facet_grid(~Diagnose_Baseline)+#, scales = "free_x", space = "free_x")+
   ylim(rev(levels(df_Figure3$ROI)))+
   geom_vline(xintercept = 0, color = "dark grey")+
@@ -854,8 +853,56 @@ Figure3 <- df_Figure3 %>%
         legend.position = "top",
         legend.text=element_text(size=9),
         legend.key.size =  unit(0.5, 'cm'),
-        legend.title = element_text(size  = 9))+
-  theme(panel.spacing = unit(1.5, "lines"))
+        legend.title = element_text(size  = 9),
+        #axis.text.y = element_text(face = c('bold', 'plain', 'plain', 'plain', 'plain', 'plain', 'plain', 'plain','bold', 'plain', 'plain',
+        #                                       'plain', 'plain', 'plain', 'plain', 'plain', 'plain', 'plain', 'bold'))
+        axis.text.y= element_blank(),
+        axis.text.x= element_text(size  = 7),
+        axis.title.x = element_text(vjust = -2))+
+  theme(panel.spacing = unit(1.2, "lines"))
 Figure3
 #ggsave("Figure3.pdf") # (safe inches 4.7 x 7.2)
+
+#Add nobs in figure 3:
+ROI_levels_Figure_A3 <- c("ROI","Amygdala", "Lateral Nucleus", "Basal Nucleus", "Accessory basal Nucleus", "AAA", "Central Nucleus",
+                          "Medial Nucleus", "Cortical Nucleus", "CATA", "Paralaminar Nucleus","Hippocampus", "CA1", "CA3", 
+                          "CA4", "Molecular Layer", "Subiculum","GC-ML-DG","HATA", "Precentral Gyrus")
+
+df_Figure3_nobsdata <- ROIs_names %>% cbind(nobs%>% select(nparticipants, nobs))
+df_Figure3_nobsdata <- rename(df_Figure3_nobsdata, ROIs_names = `.`)
+p_names <- df_Figure3_nobsdata %>%
+  mutate(ROIs_names = factor(ROIs_names, levels = rev(ROI_levels_Figure_A3)))%>%
+  ggplot(aes(y = ROIs_names))+
+  geom_text(aes(x = 0, label = ROIs_names), hjust = "right", size = 3, fontface = c('bold', 'plain', 'plain', 'plain', 'plain', 'plain', 'plain', 'plain', 'plain', 'plain','bold',
+                                                                    'plain', 'plain', 'plain', 'plain', 'plain', 'plain', 'plain', 'bold')
+   )+
+  theme_void()
+p_part<-df_Figure3_nobsdata %>%
+  mutate(ROIs_names = factor(ROIs_names, levels = rev(ROI_levels_Figure_A3)))%>%
+  ggplot()+
+  geom_text(
+    aes(x = 0, 
+        y = ROIs_names, label = nparticipants),
+    hjust = 0, size = 3,
+    fontface = "plain")+
+  theme_void() +
+  ggtitle("n \n part.")+ theme(plot.title = element_text(size = 8, face = "bold", hjust =0.7, vjust = -30))
+p_obs<-df_Figure3_nobsdata %>%
+  mutate(ROIs_names = factor(ROIs_names, levels = rev(ROI_levels_Figure_A3)))%>%
+  ggplot()+
+  geom_text(
+    aes(x = 0, y = ROIs_names, label = nobs),
+    hjust = 0, size = 3,
+    fontface = "plain")+
+  theme_void() +
+  ggtitle("n  \n obs.")+ theme(plot.title = element_text(size = 8, face = "bold", hjust =0.75, vjust = -30))
+layout <- c(
+  area(t = 0, l = 0, b = 28, r = 8), 
+  area(t = 0, l = 5, b = 28, r = 6),
+  area(t = 0, l = 6, b = 28, r = 7), 
+  area(t = 0, l = 8, b = 28, r = 21)
+  )
+# final plot arrangement
+Figure3b <- p_names + p_part + p_obs + Figure3 + plot_layout(design = layout)
+ggsave("Figure3b.png", height = 4.7, width = 7.2,bg="white", dpi = 600) # (safe inches 4.7 x 7.2)
 
